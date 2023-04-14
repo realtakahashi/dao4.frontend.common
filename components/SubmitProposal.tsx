@@ -65,6 +65,7 @@ const SubmitProposal = (props:SubmitProposalParameter) => {
                   <option value="4">Activities</option>
                   <option value="5">ElectionComissionPropsal</option>
                   <option value="6">DaoReward</option>
+                  <option value="7">CooperationProposal</option>
                 </select>
               </td>
             </tr>

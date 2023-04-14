@@ -41,7 +41,7 @@ const Proposal = (props:ProposalParameter) => {
         {showSubmitButton == true && (
           <div>
           <button
-            className="m-2 px-4 py-2  border-black border-2 bg-white rounded text-black  hover:bg-green-200"
+            className="m-2 px-4 py-2 border-black border-2 bg-white rounded text-black  hover:bg-green-200"
             onClick={() => _manageShowing(true, false, false, true,false)}
           >
             + Submit New

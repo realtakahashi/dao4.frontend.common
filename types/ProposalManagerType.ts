@@ -3,6 +3,10 @@ export interface ProposalProps {
   daoAddress: string;
 }
 
+export interface CooperateProposalProps {
+  targetProposal: CooperateProposalInfoPlus;
+}
+
 export interface ApproveDaoData {
   relatedProposalId: number;
   doReward: boolean;
@@ -18,6 +22,19 @@ export interface AddProposalFormData {
   relatedAddress: string;
 }
 
+export interface AddCooperateProposalFormData {
+  cooperateProposalKind: number;
+  daoAddressList: string;
+  title: string;
+  outline: string;
+  details: string;
+  githubURL: string;
+  proposalId: string;
+  relatedProposalIdList: string;
+  targetAddressList: string;
+  targetAmount: string;
+}
+
 export interface ProposalInfo {
   proposalKind: number;
   title: string;
@@ -30,6 +47,38 @@ export interface ProposalInfo {
   proposalStatus: number;
 }
 
+export interface CooperateProposalInfo {
+  cooperateProposalKind: number;
+  daoAddressList: string[];
+  title: string;
+  outline: string;
+  details: string;
+  githubURL: string;
+  proposalId: string;
+  relatedProposalIdList: Array<string>;
+  proposalStatus: number;
+  targetAddressList: Array<string>;
+  targetAmount: string;
+  addressOfThisContract: string;
+}
+
+export interface CooperateProposalInfoPlus {
+  cooperateProposalKind: number;
+  daoAddressList: string[];
+  title: string;
+  outline: string;
+  details: string;
+  githubURL: string;
+  proposalId: string;
+  relatedProposalIdList: Array<string>;
+  proposalStatus: number;
+  targetAddressList: Array<string>;
+  targetAmount: string;
+  addressOfThisContract: string;
+  isElectoricalCommision:boolean;
+  isDaoMemeber:boolean;
+}
+
 export const PROPOSAL_KIND = [
   "AddAMember",
   "DeleteAMember",
@@ -37,7 +86,14 @@ export const PROPOSAL_KIND = [
   "CommunityManagement",
   "Activities",
   "ElectionComissionPropsal",
-  "DaoReward"
+  "DaoReward",
+  "CooperationProposal"
+] as const;
+
+export const COOPERATE_PROPOSAL_KIND = [
+  "UseOfFunds",
+  "CommunityManagement",
+  "Activities",
 ] as const;
 
 export const PROPOSAL_STATUS = [
