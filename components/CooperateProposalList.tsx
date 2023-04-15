@@ -57,6 +57,7 @@ const CooperateProposalList = (props: CooperateProposalListProps) => {
     });
 
   const _getProposalList = async () => {
+    console.log("#### _getProposalList");
     const result = await getCooperateProposalList();
     const resultPlus = await getCooperateProposalListPlus(result);
     setProposalList(resultPlus);
@@ -71,13 +72,15 @@ const CooperateProposalList = (props: CooperateProposalListProps) => {
     _showProposalDetail: boolean,
     _targetProposal: CooperateProposalInfoPlus
   ) => {
+    console.log("#### _setShowAndSetTargetProposal");
+    console.log("### targetProposal:",_targetProposal);
     _setShow(
       _showList,
       _showVote,
       _showChangeStatus,
       _showBackButton,
       _clickBackButton,
-      _showProposalDetail
+      _showProposalDetail,
     );
     setTargetProposal(_targetProposal);
   };
@@ -90,8 +93,9 @@ const CooperateProposalList = (props: CooperateProposalListProps) => {
     _clickBackButton: boolean,
     _showProposalDetail: boolean
   ) => {
+    console.log("#### _setShow");
     setShowList(_showList);
-    setShowBackButton(_clickBackButton);
+    setShowBackButton(_showBackButton);
     _getProposalList();
     setShowVote(_showVote);
     setShowChangeStatus(_showChangeStatus);
@@ -159,7 +163,7 @@ const CooperateProposalList = (props: CooperateProposalListProps) => {
                                     false,
                                     true,
                                     false,
-                                    false,
+                                    true,
                                     false,
                                     false,
                                     proposal
@@ -184,7 +188,7 @@ const CooperateProposalList = (props: CooperateProposalListProps) => {
                                   false,
                                   false,
                                   true,
-                                  false,
+                                  true,
                                   false,
                                   false,
                                   proposal

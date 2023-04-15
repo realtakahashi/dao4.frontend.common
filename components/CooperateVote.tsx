@@ -7,10 +7,12 @@ const Vote = (props: CooperateProposalProps) => {
   const [voteStatus, setVoteStatus] = useState("0");
 
   const selectVoteStatus = (status: string) => {
+    console.log("#### selectVoteStatus");
     setVoteStatus(status);
   };
 
   const _doVote = async () => {
+    console.log("#### _doVote");
     await doVoteForCooperateProposal(
       Boolean(Number(voteStatus)),
       props.targetProposal,
@@ -21,7 +23,7 @@ const Vote = (props: CooperateProposalProps) => {
     <>
       <div className="flex justify-center">
         <div
-          className="m-5  max-w-sm rounded overflow-hidden shadow-lg bg-black border-4 border-white"
+          className="m-5  max-w-sm rounded overflow-hidden shadow-lg bg-black border-4 border-white py-5 px-5"
           key={props.targetProposal.title}
         >
           <CooperateProposalParts targetProposal={props.targetProposal} ></CooperateProposalParts>

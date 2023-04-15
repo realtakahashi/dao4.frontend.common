@@ -55,9 +55,24 @@ export interface CooperateProposalInfo {
   details: string;
   githubURL: string;
   proposalId: string;
-  relatedProposalIdList: Array<string>;
+  relatedProposalIdList: string[];
   proposalStatus: number;
-  targetAddressList: Array<string>;
+  targetAddressList: string[];
+  targetAmount: string;
+  addressOfThisContract: string;
+}
+
+export interface CoProposalInfoForContractCall {
+  coProposalKind: number;
+  daoAddressList: string[];
+   title: string;
+  outline: string;
+  details: string;
+  githubURL: string;
+  proposalId: string;
+  relatedProposalIdList: string[];
+  proposalStatus: number;
+  targetAddressList: string[];
   targetAmount: string;
   addressOfThisContract: string;
 }

@@ -7,111 +7,111 @@ import {
 } from "../types/ProposalManagerType";
 
 const CooprateProposalDetails = (props: CooperateProposalProps) => {
-    const [divideList,setDivideList]= useState("");
+  const [divideList, setDivideList] = useState("");
 
-    const _executeProposal = async () => {
-        await doExecuteProposal(divideList,props.targetProposal);
-    }
+  const _executeProposal = async () => {
+    console.log("#### _setShow");
+    await doExecuteProposal(divideList, props.targetProposal);
+  };
   return (
-    <div className="flex flex-col text-center">
-      <table className="table-auto border-collapse border border-white">
-        <tr>
-          <td>Proposal Id:</td>
-          <td>{String(props.targetProposal.proposalId)}</td>
+    <div className="flex flex-col text-center px-20">
+      <table className="border-2 border-white text-white">
+        <tr className="border-2 border-white">
+          <td  className="border-2 border-white">Proposal Id:</td>
+          <td className="border-2 border-white">{String(props.targetProposal.proposalId)}</td>
         </tr>
-        <tr>
-          <td>Title:</td>
-          <td>{props.targetProposal.title}</td>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">Title:</td>
+          <td className="border-2 border-white">{props.targetProposal.title}</td>
         </tr>
-        <tr>
-          <td>Kind:</td>
-          <td>{PROPOSAL_KIND[props.targetProposal.cooperateProposalKind]}</td>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">Kind:</td>
+          <td className="border-2 border-white">{PROPOSAL_KIND[props.targetProposal.cooperateProposalKind]}</td>
         </tr>
-        <tr>
-          <td>Status:</td>
-          <td>{PROPOSAL_STATUS[props.targetProposal.proposalStatus]}</td>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">Status:</td>
+          <td className="border-2 border-white">{PROPOSAL_STATUS[props.targetProposal.proposalStatus]}</td>
         </tr>
-        <tr>
-          <td>Outline:</td>
-          <td>{props.targetProposal.outline}</td>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">Outline:</td>
+          <td className="border-2 border-white">{props.targetProposal.outline}</td>
         </tr>
-        <tr>
-          <td>Github Url:</td>
-          <td>{props.targetProposal.githubURL}</td>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">Github Url:</td>
+          <td className="border-2 border-white">{props.targetProposal.githubURL}</td>
         </tr>
-        <tr>
-          <td rowSpan={props.targetProposal.daoAddressList.length}>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">
             Cooperate Dao List:
           </td>
-          {typeof props.targetProposal.daoAddressList !== "undefined" ? (
-            props.targetProposal.daoAddressList.map((dao) => {
-              <>
-                <td>{dao}</td>
-              </>;
-            })
-          ) : (
-            <td></td>
-          )}
+          <td className="border-2 border-white">
+            {props.targetProposal.daoAddressList.map((dao) => {
+                return(
+                  <>
+                {dao}<br/>
+                </>
+                );
+            })}
+            </td>
         </tr>
-        <tr>
-          <td rowSpan={props.targetProposal.relatedProposalIdList.length}>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">
             Related Proposal Id List:
           </td>
-          {typeof props.targetProposal.relatedProposalIdList !== "undefined" ? (
-            props.targetProposal.relatedProposalIdList.map((proposalId) => {
-              <>
-                <td>{proposalId}</td>
-              </>;
-            })
-          ) : (
-            <td></td>
-          )}
+          <td className="border-2 border-white">
+            {props.targetProposal.relatedProposalIdList.map((proposalId) => {
+                return(
+                  <>
+                {String(proposalId)}<br/>
+                </>
+                );
+            })}
+            </td>
         </tr>
-        <tr>
-          <td rowSpan={props.targetProposal.targetAddressList.length}>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">
             Target Address List:
           </td>
-          {typeof props.targetProposal.targetAddressList !== "undefined" ? (
-            props.targetProposal.targetAddressList.map((targetAddress) => {
-              <>
-                <td>{targetAddress}</td>
-              </>;
-            })
-          ) : (
-            <td></td>
-          )}
+          <td className="border-2 border-white">
+            {props.targetProposal.targetAddressList.map((targetAddress) => {
+                return(
+                <>
+                {targetAddress}<br/>
+                </>
+                );
+            })}
+            </td>
         </tr>
-        <tr>
-          <td>Target Amount:</td>
-          <td>{props.targetProposal.targetAmount}</td>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">Target Amount:</td>
+          <td className="border-2 border-white">{String(props.targetProposal.targetAmount)}</td>
         </tr>
-        <tr>
-          <td>Address Of Proposal:</td>
+        <tr className="border-2 border-white">
+          <td className="border-2 border-white">Address Of Proposal:</td>
           <td>{props.targetProposal.addressOfThisContract}</td>
         </tr>
       </table>
       <div className="p-5"></div>
       {props.targetProposal.isDaoMemeber && (
         <>
-            <div className="text-green-400 text-40px">Execute Proposal</div>
-            <table>
-            <td>
-                Divide List Of Amount(Note:CSV Fromat):
-            </td>
-            <td>
-            <input
-                className="text-black text-14px px-2 py-1"
+          <div className="text-green-400 text-40px">Execute Proposal</div>
+          <table className="">
+            <tr>
+            <td className=" w-1/3 text-white">Divide List Of Amount(Note:CSV Fromat):</td>
+            <td className="text-left  px-3 py-3">
+              <textarea
+                className="text-black text-14px px-2 py-1 w-2/3"
                 onChange={(e) => setDivideList(e.target.value)}
-              ></input>
+              ></textarea>
             </td>
-            </table>
-            <div className="">
-                <button
-                    onClick={_executeProposal}
-                >
-                    Execute Proposal
-                </button>
-            </div>
+            </tr>
+          </table>
+          <div className="p-3">
+            <button
+              className="text-black bg-green-100 hover:bg-green-400 border-white border-2 px-5 py-3"
+            onClick={_executeProposal}>Execute Proposal</button>
+          </div>
+          <div className="p-6"></div>
         </>
       )}
     </div>

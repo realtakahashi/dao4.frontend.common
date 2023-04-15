@@ -7,10 +7,12 @@ const CooperateChangeStatusOfProposal = (props: CooperateProposalProps) => {
   const [changeStatus, setChangeStatus] = useState("0");
 
   const selectChangeStatus = (status: string) => {
+    console.log("### selectChangeStatus");
     setChangeStatus(status);
   };
 
   const _doChangeStatus = async () => {
+    console.log("### _doChangeStatus");
     await doChangeStatusForCooperateProposal(
       Number(changeStatus),
       props.targetProposal,
@@ -21,7 +23,7 @@ const CooperateChangeStatusOfProposal = (props: CooperateProposalProps) => {
     <>
       <div className="flex justify-center">
         <div
-          className="m-5  max-w-sm rounded overflow-hidden shadow-lg bg-black border-4 border-white"
+          className="m-5  max-w-sm rounded overflow-hidden shadow-lg bg-black border-4 border-white py-5 px-5" 
           key={props.targetProposal.title}
         >
           <CooperateProposalParts targetProposal={props.targetProposal} ></CooperateProposalParts>
@@ -34,6 +36,7 @@ const CooperateChangeStatusOfProposal = (props: CooperateProposalProps) => {
             value={changeStatus}
             onChange={(e) => selectChangeStatus(e.target.value)}
           >
+            <option value="10">* Please Select *</option>
             <option value="1">Voting</option>
             <option value="2">Pending</option>
             <option value="5">FinishedVoting</option>

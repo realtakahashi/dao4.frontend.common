@@ -3,6 +3,7 @@ import {
   AddCooperateProposalFormData,
   CooperateProposalInfo,
   CooperateProposalInfoPlus,
+  CoProposalInfoForContractCall,
 } from "../types/ProposalManagerType";
 import { errorFunction } from "./commonFunctions";
 import CooperateProposalContract from "./construct/CooperateProposal";
@@ -46,7 +47,8 @@ export const getCooperateProposalListPlus = async (
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
-    list.forEach(async (item: CooperateProposalInfo) => {
+//    list.forEach(async (item: CooperateProposalInfo) => {
+    for (const item of list) {
       const contractAddress = item.addressOfThisContract ?? "";
 
       const contract = new ethers.Contract(
@@ -54,12 +56,14 @@ export const getCooperateProposalListPlus = async (
         contractConstract.abi,
         signer
       );
+      console.log("### onlyEitherElectionCommision");
       const isElectoricalCommision: boolean = await contract
         .onlyEitherElectionCommision(item.daoAddressList)
         .catch((err: any) => {
           console.log(err);
           errorFunction(err);
         });
+      console.log("### checkOnlyCooperateMemeber");
       const isDaoMember: boolean = await contract
         .checkOnlyCooperateMemeber(item.daoAddressList)
         .catch((err: any) => {
@@ -79,10 +83,10 @@ export const getCooperateProposalListPlus = async (
         targetAddressList: item.targetAddressList,
         targetAmount: item.targetAmount,
         addressOfThisContract: item.addressOfThisContract,
-        isElectoricalCommision: isElectoricalCommision,
-        isDaoMemeber: isDaoMember,
+        isElectoricalCommision: true,//isElectoricalCommision,
+        isDaoMemeber: true,//isDaoMember,
       });
-    });
+    }
   }
   console.log("### getCooperateProposalListPlus Return: ", response);
   return response;
@@ -166,22 +170,22 @@ export const registerCooperateProposal = async (
   inputData: AddCooperateProposalFormData
 ) => {
   const contractConstract = CooperateProposalContract;
-  const proposalData: CooperateProposalInfo = {
-    cooperateProposalKind: inputData.cooperateProposalKind,
+  const proposalData: CoProposalInfoForContractCall = {
+    coProposalKind: inputData.cooperateProposalKind,
     daoAddressList: inputData.daoAddressList.split(","),
     title: inputData.title,
     outline: inputData.outline,
     details: inputData.details,
     githubURL: inputData.githubURL,
-    proposalId: inputData.proposalId,
+    proposalId: "0",
     relatedProposalIdList: inputData.relatedProposalIdList.split(","),
     proposalStatus: 0,
     targetAddressList: inputData.targetAddressList.split(","),
     targetAmount: inputData.targetAmount,
-    addressOfThisContract: "",
+    addressOfThisContract: "0x0000000000000000000000000000000000000000",
   };
 
-  console.log("## proposalData:",proposalData);
+  console.log("## proposalData:", proposalData);
 
   const proposalManagerAddress =
     process.env.NEXT_PUBLIC_PROPOSAL_MANAGER_CONTRACT_ADDRESS;
@@ -190,9 +194,12 @@ export const registerCooperateProposal = async (
   const cooperateProposalManagerAddress =
     process.env.NEXT_PUBLIC_COOPERATE_PROPOSAL_MANAGER_CONTRACT_ADDRESS;
 
-  console.log("## proposalManagerAddress",proposalManagerAddress);
-  console.log("## memberManagerAddress",memberManagerAddress);
-  console.log("## cooperateProposalManagerAddress",cooperateProposalManagerAddress);
+  console.log("## proposalManagerAddress", proposalManagerAddress);
+  console.log("## memberManagerAddress", memberManagerAddress);
+  console.log(
+    "## cooperateProposalManagerAddress",
+    cooperateProposalManagerAddress
+  );
 
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -212,7 +219,7 @@ export const registerCooperateProposal = async (
       .catch((err: any) => {
         errorFunction(err);
       });
-    console.log("result:",result);
+    console.log("result:", result);
     const ret = await result.deployed();
   }
 };
